@@ -3,6 +3,7 @@ import path from 'path';
 import nconf from 'nconf';
 
 import { install } from '../../install/web';
+import installModule from '../install';
 import { paths } from '../constants';
 import build from '../meta/build';
 import prestart from '../prestart';
@@ -36,9 +37,9 @@ export async function setup(initConfig: InitConfig) {
     );
     console.log('Press enter to accept the default setting (shown in brackets).');
 
-    install.values = initConfig;
+    installModule.values = initConfig;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    const data: SetupConfig = await install.setup() as SetupConfig;
+    const data: SetupConfig = await installModule.setup() as SetupConfig;
     let configFile = paths.config;
     if (nconf.get('config')) {
         configFile = path.resolve(paths.baseDir, nconf.get('config') as string);
