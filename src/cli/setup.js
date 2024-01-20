@@ -32,7 +32,7 @@ function setup(initConfig) {
         install.values = initConfig;
         const data = yield install.setup();
         let configFile = paths.config;
-        if (nconf_1.default.get("config")) {
+        if (nconf_1.default.get('config')) {
             configFile = path_1.default.resolve(paths.baseDir, nconf_1.default.get('config'));
         }
         prestart.loadConfig(configFile);
