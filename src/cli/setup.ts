@@ -1,8 +1,6 @@
-"use strict";
-
-const winston = require("winston");
-const path = require("path");
-const nconf = require("nconf");
+import winston from "winston";
+import path from "path";
+import nconf from "nconf";
 
 const { install } = require("../../install/web");
 

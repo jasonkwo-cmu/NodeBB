@@ -8,30 +8,35 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const winston = require("winston");
-const path = require("path");
-const nconf = require("nconf");
-const { install } = require("../../install/web");
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.install = exports.webInstall = exports.setup = void 0;
+const winston_1 = __importDefault(require("winston"));
+const path_1 = __importDefault(require("path"));
+const nconf_1 = __importDefault(require("nconf"));
+const constants_1 = require("../constants");
+const web_1 = __importDefault(require("../../install/web"));
+exports.install = web_1.default;
+const build_1 = __importDefault(require("../meta/build"));
+const prestart_1 = __importDefault(require("../prestart"));
+const package_json_1 = __importDefault(require("../../package.json"));
 function setup(initConfig) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { paths } = require("../constants");
-        const install = require("../install");
-        const build = require("../meta/build");
-        const prestart = require("../prestart");
-        const pkg = require("../../package.json");
-        winston.info("NodeBB Setup Triggered via Command Line");
-        console.log(`\nWelcome to NodeBB v${pkg.version}!`);
+        winston_1.default.info("NodeBB Setup Triggered via Command Line");
+        console.log(`\nWelcome to NodeBB v${package_json_1.default.version}!`);
         console.log("\nThis looks like a new installation, so you'll have to answer a few questions about your environment before we can proceed.");
         console.log("Press enter to accept the default setting (shown in brackets).");
-        install.values = initConfig;
-        const data = yield install.setup();
-        let configFile = paths.config;
-        if (nconf.get("config")) {
-            configFile = path.resolve(paths.baseDir, nconf.get("config"));
+        web_1.default.values = initConfig;
+        const data = yield web_1.default.setup();
+        let configFile = constants_1.paths.config;
+        if (nconf_1.default.get("config")) {
+            configFile = path_1.default.resolve(constants_1.paths.baseDir, nconf_1.default.get("config"));
         }
-        prestart.loadConfig(configFile);
-        if (!nconf.get("skip-build")) {
-            yield build.buildAll();
+        prestart_1.default.loadConfig(configFile);
+        if (!nconf_1.default.get("skip-build")) {
+            yield build_1.default.buildAll();
         }
         let separator = "     ";
         if (process.stdout.columns > 10) {
@@ -56,4 +61,3 @@ function setup(initConfig) {
     });
 }
 exports.setup = setup;
-exports.webInstall = install;
