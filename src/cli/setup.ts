@@ -56,4 +56,4 @@ export async function setup(initConfig) {
     process.exit();
 }
 
-export { install as webInstall };
+export const webInstall = install;

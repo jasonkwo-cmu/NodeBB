@@ -17,7 +17,6 @@ const winston_1 = __importDefault(require("winston"));
 const path_1 = __importDefault(require("path"));
 const nconf_1 = __importDefault(require("nconf"));
 const web_1 = require("../../install/web");
-Object.defineProperty(exports, "webInstall", { enumerable: true, get: function () { return web_1.install; } });
 const constants_1 = require("../constants");
 const build_1 = __importDefault(require("../meta/build"));
 const prestart_1 = __importDefault(require("../prestart"));
@@ -61,3 +60,4 @@ function setup(initConfig) {
     });
 }
 exports.setup = setup;
+exports.webInstall = web_1.install;
