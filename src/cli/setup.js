@@ -17,6 +17,7 @@ const winston_1 = __importDefault(require("winston"));
 const path_1 = __importDefault(require("path"));
 const nconf_1 = __importDefault(require("nconf"));
 const web_1 = require("../../install/web");
+const install_1 = __importDefault(require("../install"));
 const constants_1 = require("../constants");
 const build_1 = __importDefault(require("../meta/build"));
 const prestart_1 = __importDefault(require("../prestart"));
@@ -27,9 +28,9 @@ function setup(initConfig) {
         console.log(`\nWelcome to NodeBB v${package_json_1.default.version}!`);
         console.log('\nThis looks like a new installation, so you\'ll have to answer a few questions about your environment before we can proceed.');
         console.log('Press enter to accept the default setting (shown in brackets).');
-        web_1.install.values = initConfig;
+        install_1.default.values = initConfig;
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-        const data = yield web_1.install.setup();
+        const data = yield install_1.default.setup();
         let configFile = constants_1.paths.config;
         if (nconf_1.default.get('config')) {
             configFile = path_1.default.resolve(constants_1.paths.baseDir, nconf_1.default.get('config'));
