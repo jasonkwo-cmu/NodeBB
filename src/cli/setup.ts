@@ -3,14 +3,12 @@ import path from 'path';
 import nconf from 'nconf';
 
 import { install } from '../../install/web';
+import {paths} from '../constants';
+import build from '../meta/build';
+import prestart from '../prestart';
+import pkg from '../../package.json';
 
 export async function setup(initConfig) {
-    const { paths } = require('../constants');
-    const install = require('../install');
-    const build = require('../meta/build');
-    const prestart = require('../prestart');
-    const pkg = require('../../package.json');
-
     winston.info('NodeBB Setup Triggered via Command Line');
 
     console.log(`\nWelcome to NodeBB v${pkg.version}!`);

@@ -18,26 +18,25 @@ const path_1 = __importDefault(require("path"));
 const nconf_1 = __importDefault(require("nconf"));
 const web_1 = require("../../install/web");
 Object.defineProperty(exports, "webInstall", { enumerable: true, get: function () { return web_1.install; } });
+const constants_1 = require("../constants");
+const build_1 = __importDefault(require("../meta/build"));
+const prestart_1 = __importDefault(require("../prestart"));
+const package_json_1 = __importDefault(require("../../package.json"));
 function setup(initConfig) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { paths } = require('../constants');
-        const install = require('../install');
-        const build = require('../meta/build');
-        const prestart = require('../prestart');
-        const pkg = require('../../package.json');
         winston_1.default.info('NodeBB Setup Triggered via Command Line');
-        console.log(`\nWelcome to NodeBB v${pkg.version}!`);
+        console.log(`\nWelcome to NodeBB v${package_json_1.default.version}!`);
         console.log('\nThis looks like a new installation, so you\'ll have to answer a few questions about your environment before we can proceed.');
         console.log('Press enter to accept the default setting (shown in brackets).');
-        install.values = initConfig;
-        const data = yield install.setup();
-        let configFile = paths.config;
+        web_1.install.values = initConfig;
+        const data = yield web_1.install.setup();
+        let configFile = constants_1.paths.config;
         if (nconf_1.default.get('config')) {
-            configFile = path_1.default.resolve(paths.baseDir, nconf_1.default.get('config'));
+            configFile = path_1.default.resolve(constants_1.paths.baseDir, nconf_1.default.get('config'));
         }
-        prestart.loadConfig(configFile);
+        prestart_1.default.loadConfig(configFile);
         if (!nconf_1.default.get('skip-build')) {
-            yield build.buildAll();
+            yield build_1.default.buildAll();
         }
         let separator = '     ';
         if (process.stdout.columns > 10) {
