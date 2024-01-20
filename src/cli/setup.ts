@@ -22,7 +22,7 @@ export async function setup(initConfig) {
     const data = await install.setup();
     let configFile = paths.config;
     if (nconf.get('config')) {
-        configFile = path.resolve(paths.baseDir, nconf.get('config'));
+        configFile = path.resolve(paths.baseDir, nconf.get('config') as string);
     }
 
     prestart.loadConfig(configFile);
@@ -43,9 +43,9 @@ export async function setup(initConfig) {
     if (data.hasOwnProperty('password')) {
         console.log('An administrative user was automatically created for you:');
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        console.log(`    Username: ${data.username}`);
+        console.log(`    Username: ${data.username as string}`);
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        console.log(`    Password: ${data.password}`);
+        console.log(`    Password: ${data.password as string}`);
         console.log('');
     }
     console.log(
