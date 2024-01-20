@@ -8,7 +8,26 @@ import build from '../meta/build';
 import prestart from '../prestart';
 import pkg from '../../package.json';
 
-export async function setup(initConfig) {
+interface InitConfig {
+  url?: string;
+  launchUrl? : string;
+  skipGeneralSetup?: boolean;
+  databases?: object;
+  skipDatabaseSetup?: boolean;
+  error?: boolean;
+  success?: boolean;
+  values: object;
+  minimumPasswordLegth?: number;
+  minimumPasswordStrength?: number;
+  installing?: boolean;
+}
+
+interface SetupConfig {
+  username?: string;
+  password?: string;
+}
+
+export async function setup(initConfig: InitConfig) {
     winston.info('NodeBB Setup Triggered via Command Line');
 
     console.log(`\nWelcome to NodeBB v${pkg.version}!`);
@@ -19,7 +38,7 @@ export async function setup(initConfig) {
 
     install.values = initConfig;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    const data = await install.setup();
+    const data: SetupConfig = await install.setup() as SetupConfig;
     let configFile = paths.config;
     if (nconf.get('config')) {
         configFile = path.resolve(paths.baseDir, nconf.get('config') as string);
@@ -43,9 +62,9 @@ export async function setup(initConfig) {
     if (data.hasOwnProperty('password')) {
         console.log('An administrative user was automatically created for you:');
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        console.log(`    Username: ${data.username as string}`);
+        console.log(`    Username: ${data.username}`);
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        console.log(`    Password: ${data.password as string}`);
+        console.log(`    Password: ${data.password}`);
         console.log('');
     }
     console.log(
