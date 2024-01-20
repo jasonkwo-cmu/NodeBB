@@ -3,7 +3,7 @@ import path from 'path';
 import nconf from 'nconf';
 
 import { install } from '../../install/web';
-import {paths} from '../constants';
+import { paths } from '../constants';
 import build from '../meta/build';
 import prestart from '../prestart';
 import pkg from '../../package.json';
