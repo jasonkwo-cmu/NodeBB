@@ -2,9 +2,9 @@ import winston from "winston";
 import path from "path";
 import nconf from "nconf";
 
-const { install } = require("../../install/web");
+import { install } from "../../install/web";
 
-async function setup(initConfig) {
+export async function setup(initConfig) {
   const { paths } = require("../constants");
   const install = require("../install");
   const build = require("../meta/build");
@@ -58,5 +58,4 @@ async function setup(initConfig) {
   process.exit();
 }
 
-exports.setup = setup;
-exports.webInstall = install;
+export { install as webInstall };
