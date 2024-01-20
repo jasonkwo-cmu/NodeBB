@@ -28,6 +28,7 @@ function setup(initConfig) {
         console.log('\nThis looks like a new installation, so you\'ll have to answer a few questions about your environment before we can proceed.');
         console.log('Press enter to accept the default setting (shown in brackets).');
         web_1.install.values = initConfig;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         const data = yield web_1.install.setup();
         let configFile = constants_1.paths.config;
         if (nconf_1.default.get('config')) {
@@ -44,9 +45,12 @@ function setup(initConfig) {
             }
         }
         console.log(`\n${separator}\n`);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
         if (data.hasOwnProperty('password')) {
             console.log('An administrative user was automatically created for you:');
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             console.log(`    Username: ${data.username}`);
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             console.log(`    Password: ${data.password}`);
             console.log('');
         }

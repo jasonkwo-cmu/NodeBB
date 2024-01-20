@@ -18,6 +18,7 @@ export async function setup(initConfig) {
     console.log('Press enter to accept the default setting (shown in brackets).');
 
     install.values = initConfig;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     const data = await install.setup();
     let configFile = paths.config;
     if (nconf.get('config')) {
@@ -38,9 +39,12 @@ export async function setup(initConfig) {
     }
     console.log(`\n${separator}\n`);
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     if (data.hasOwnProperty('password')) {
         console.log('An administrative user was automatically created for you:');
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         console.log(`    Username: ${data.username}`);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         console.log(`    Password: ${data.password}`);
         console.log('');
     }
